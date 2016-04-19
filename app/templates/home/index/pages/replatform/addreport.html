@@ -1,0 +1,179 @@
+{% extends "home/index/footer.html" %}
+{% block title %}WEBTool{% endblock %}
+{% block body %}
+<body class="skin-blue sidebar-mini">
+    <div class="wrapper">
+        {% block header %}
+            {{ super() }}
+        {% endblock %}
+        {% block left %}
+            {{ super() }}
+        {% endblock %}
+        <div class="content-wrapper page-heading">
+             <section class="content-header">
+                 {% if report %}
+                 <h1>Edit Report<small>修改报告</small></h1>
+                 {% else %}
+                 <h1>Add Report<small>新建报告</small></h1>
+                 {% endif %}
+            </section>
+            <section class="content">
+                <div class="col-md-6">
+                    <div class="box">
+                        <div class="box-header">
+                            <h1 class="box-title">Report  Information<small>报告信息</small></h1>
+                        </div>
+                        <div class="box-body">
+                            <div class="box box-primary">
+                                <div class="box-header ui-sortable-handle" style="cursor:move">
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-sm-12" style="margin-bottom: 10px">
+                                        <label for="name" class="col-sm-4 control-label">报告名称</label>
+                                        <div class="col-sm-8">
+                                            <input id="name" type="text" class="col-sm-2 form-control" placeholder="报告名称"
+                                                    {% if report %} value="{{ report.name }}" {% endif %}>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12" style="margin-bottom: 10px">
+                                        <label for="type" class="col-sm-4 control-label">报告类型</label>
+                                        <div class="col-sm-8">
+                                            <select id="type" class="form-control" name="type"
+                                                    {% if report %} value="{{ report.type }}" {% endif %}>
+                                                <option>Web Application</option>
+                                                <option>Network Security</option>
+                                                <option>System Security</option>
+                                                <option>Logging and Auditing</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12" style="margin-bottom: 10px">
+                                        <label for="ip" class="col-sm-4 control-label">测试地址</label>
+                                        <div class="col-sm-8">
+                                            <input id="ip" type="text" class="col-sm-2 form-control" placeholder="测试地址"
+                                                    {% if report %} value="{{ report.ip }}" {% endif %}>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12" style="margin-bottom: 10px">
+                                        <label for="date" class="col-sm-4 control-label">报告日期</label>
+                                        <div class="col-sm-8">
+                                            <input id="date" type="text" class="col-sm-2 form-control" placeholder="2015/1/1"
+                                                    {% if report %} value="{{ report.date }}" {% endif %}>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12" style="margin-bottom: 10px">
+                                        <label for="author" class="col-sm-4 control-label">作者</label>
+                                        <div class="col-sm-8">
+                                            <input id="author" type="text" class="col-sm-2 form-control" placeholder="作者"
+                                                    {% if report %} value="{{ report.author }}" {% endif %}>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12" style="margin-bottom: 10px">
+                                        <label for="start_time" class="col-sm-4 control-label">开始时间</label>
+                                        <div class="col-sm-8">
+                                            <input id="start_time" type="text" class="col-sm-2 form-control" placeholder="2015/1/1"
+                                                    {% if report %} value="{{ report.start_time }}" {% endif %}>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12" style="margin-bottom: 10px">
+                                        <label for="end_time" class="col-sm-4 control-label">结束时间</label>
+                                        <div class="col-sm-8">
+                                            <input id="end_time" type="text" class="col-sm-2 form-control" placeholder="2015/1/2"
+                                                    {% if report %} value="{{ report.end_time }}" {% endif %}>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-12">
+                                            <button type="submit"   {% if report %} id="btn-editreport"
+                                                                        {% else %} id="btn-addreport"
+                                                                    {% endif %}
+                                                    class="btn btn-default pull-right">
+                                                <i class="fa fa-plus"></i>
+                                                添加
+                                            </button>
+                                            <a href="{{ url_for('homes.report') }}" class="btn btn-default pull-right"><i class="fa fa-share"></i>
+                                            取消
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box">
+                        <div class="box-header ui-sortable-handle" style="cursor:move;">
+                            <h1 class="box-title">Vulnerablelities  List<small>漏洞列表</small></h1>
+                        </div>
+                        <div class="box-body">
+                            <div class="box box-primary">
+                                <div class="box-header ui-sortable-handle" style="cursor:move">
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-12">
+                                        <table class="table">
+                                            <tbody id="main">
+                                                {% if vulns %}
+                                                    {% for vuln in vulns %}
+                                                        <tr>
+                                                            <td>{{ vuln.title }}</td>
+                                                            <td>{{ vuln.type }}</td>
+                                                            <td>{{ vuln.risk }}</td>
+                                                            <td>
+                                                                <a class="btn btn-default btn-sm fa fa-pencil" href=""></a>
+                                                                <a class="btn btn-default btn-sm fa fa-trash-o" href=""></a>
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                {% else %}
+                                                        <tr><th>暂无漏洞</th></tr>
+                                                {% endif %}
+                                            </tbody>
+                                        </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-footer clearfix no-border">
+                                    {% if report %}
+                                    <a href="{{ url_for('homes.get_report_vuln_list',id=report.id) }}">
+                                        <button type="button" class="btn btn-default pull-right">
+                                        <i class="fa fa-plus"></i>
+                                        添加
+                                        </button>
+                                    </a>
+                                    {% endif %}
+                                    <a href="{{ url_for('homes.new_report_vuln',id=report.id) }}"><button type="button" class="btn btn-default pull-right">
+                                        <i class="fa fa-share"></i>
+                                        新建
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+         </div>
+        {% block footer %}
+            {{ super() }}
+        {% endblock %}
+    </div>
+    {% block js %}
+    <script type="text/javascript" src="{{ url_for('static', filename='plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='bootstrap/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='dist/js/app.min.js') }}"></script>
+{#        //分页js#}
+    <script type="text/javascript" src="{{ url_for('static',filename='pagination/jquery.twbsPagination.min.js') }}"></script>
+        {{ super() }}
+    <script src="{{ url_for('static', filename='js/home/replatform/addreport.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/home/replatform/report_vuln.js') }}" type="text/javascript"></script>
+    {% endblock %}
+</body>
+
+
+{% endblock %}

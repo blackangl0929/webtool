@@ -19,6 +19,18 @@
                     <span>仪表盘</span>
                 </a>
             </li>
+            <li class="treeview active">
+                <a href="">
+                    <i class="fa fa-edit"></i>
+                    <span>报告系统</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu menu-open">
+                    <li><a href="{{ url_for('homes.vuln') }}"><i class="fa fa-database"></i>漏洞库 </a> </li>
+                    <li><a href="{{ url_for('homes.report') }}"><i class="fa fa-file-word-o"></i>报告列表 </a> </li>
+                    <li><a href="{{ url_for('homes.vuln') }}"><i class="fa fa-sitemap"></i>模板列表 </a> </li>
+                </ul>
+            </li>
         </ul>
     </section>
 </aside>

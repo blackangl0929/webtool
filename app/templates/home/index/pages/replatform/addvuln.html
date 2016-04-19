@@ -1,0 +1,107 @@
+{% extends "home/index/footer.html" %}
+{% block title %}WEBTool{% endblock %}
+{% block body %}
+<body class="skin-blue sidebar-mini">
+    <div class="wrapper">
+        {% block header %}
+            {{ super() }}
+        {% endblock %}
+        {% block left %}
+            {{ super() }}
+        {% endblock %}
+        <div class="content-wrapper page-heading">
+             <section class="content-header">
+                <div class="box">
+                    <div class="box-header">
+                        <h1 class="box-title">Add Vulnerability  <small>添加漏洞</small></h1>
+                    </div>
+                    <div class="box-body">
+                            <div class="col-sm-12" style="margin-bottom: 10px">
+                                <label for="title" class="col-sm-2 control-label">漏洞名称</label>
+                                <div class="col-sm-3">
+                                    <input id="title" type="text" class="col-sm-2 form-control" placeholder="漏洞名称"
+                                            {% if vuln %} value="{{ vuln.title }}" {% endif %}>
+                                </div>
+                            </div>
+                            <div class="col-sm-12" style="margin-bottom: 10px">
+                                <label for="type" class="col-sm-2 control-label">漏洞类型</label>
+                                <div class="col-sm-3">
+                                    <select id="type" class="form-control" name="type"
+                                            {% if vuln %} value="{{ vuln.type }}" {% endif %}>
+                                        <option>Web Application</option>
+                                        <option>Network Security</option>
+                                        <option>System Security</option>
+                                        <option>Logging and Auditing</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12" style="margin-bottom: 10px">
+                                <label for="risk" class="col-sm-2 control-label">风险等级</label>
+                                <div class="col-sm-3">
+                                    <select id="risk" class="col-sm-2 form-control" name="risk"
+                                            {% if vuln %} value="{{ vuln.risk }}" {% endif %}>
+                                        <option>严重</option>
+                                        <option>中度</option>
+                                        <option>轻度</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12" style="margin-bottom: 10px">
+                                <label class="col-sm-2 control-label">漏洞描述</label>
+                                <div class="col-sm-6">
+                                    <textarea id="overview" class="form-control" rows="3" placeholder="Enter...">{% if vuln %}{{ vuln.overview }}{% endif %}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-12" style="margin-bottom: 10px">
+                                <label class="col-sm-2 control-label">验证过程</label>
+                                <div class="col-sm-6">
+                                    <textarea id="poc" class="form-control" rows="3" placeholder="Enter...">{% if vuln %}{{ vuln.poc }}{% endif %}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-12" style="margin-bottom: 10px">
+                                <label class="col-sm-2 control-label">风险分析</label>
+                                <div class="col-sm-6">
+                                    <textarea id="damage" class="form-control" rows="3" placeholder="Enter...">{% if vuln %}{{ vuln.damage }}{% endif %}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-12" style="margin-bottom: 10px">
+                                <label class="col-sm-2 control-label">整改建议</label>
+                                <div class="col-sm-6">
+                                <textarea id="remediation" class="form-control" rows="3" placeholder="Enter...">{% if vuln  %}{{ vuln.remediation }}{% endif %}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-8">
+                                    <button type="submit"   {% if vuln %} id="btn-editvuln"
+                                                                {% else %} id="btn-addvuln"
+                                                            {% endif %}
+                                            class="btn btn-default pull-right">
+                                        <i class="fa fa-plus"></i>
+                                        添加
+                                    </button>
+                                    <a href="{{ url_for('homes.vuln') }}" class="btn btn-default pull-right"><i class="fa fa-share"></i>
+                                    取消
+                                    </a>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </section>
+         </div>
+        {% block footer %}
+            {{ super() }}
+        {% endblock %}
+    </div>
+    {% block js %}
+    <script type="text/javascript" src="{{ url_for('static', filename='plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='bootstrap/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='dist/js/app.min.js') }}"></script>
+{#        //分页js#}
+    <script type="text/javascript" src="{{ url_for('static',filename='pagination/jquery.twbsPagination.min.js') }}"></script>
+        {{ super() }}
+    <script src="{{ url_for('static', filename='js/home/replatform/addvuln.js') }}" type="text/javascript"></script>
+    {% endblock %}
+</body>
+
+
+{% endblock %}

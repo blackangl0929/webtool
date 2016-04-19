@@ -1,8 +1,8 @@
 #coding=utf8
-from flask import Blueprint,render_template,redirect,url_for,\
-    request,jsonify,session, g
+from flask import Blueprint,render_template, redirect, url_for,\
+    request, jsonify, session
 from app import app
-from app.models import MailUser,InviteCodeList, Users
+from app.models import MailUser, InviteCodeList, Users
 from util.util import getPasswordMd5, getServerInfo, getRamdomString
 from flask.ext.login import login_user, login_required, logout_user, current_user
 from celerysend import send_my_email
@@ -30,7 +30,7 @@ def login():
         if username != "" and password != "":
             user = Users.query.filter_by(username=username).first()
             if user is not None:
-                if user.password == getPasswordMd5(password,user.regDate):
+                if user.password == getPasswordMd5(password, user.regDate):
                     login_user(user)
                     session.permanent = True  #session有效时间
                     return jsonify({'url': url_for('admins.index'), 'msg': 'success'})
@@ -117,7 +117,7 @@ def sendmail(action):
 @admins.route("/invitecontrol/<action>/<int:page>", methods = ["GET", "POST"])
 @isLogin
 @login_required
-def invitecontrol(action,page=None):
+def invitecontrol(action, page=None):
     if request.method == "GET":
         if action == "index":
             #分页查询所有code
@@ -128,7 +128,7 @@ def invitecontrol(action,page=None):
             codes = InviteCodeList.query.paginate(pages, PAGE_SUM, False)
             if codes != None:
                 show_list = codes.items  #取出要显示的条数
-            return render_template("admins/index/pages/invitecode/codecontrol.html", codes = show_list, pages = codes)
+            return render_template("admins/index/pages/invitecode/codecontrol.html", codes=show_list, pages=codes)
         if action== "deletecodes":
             try:
                 delcodes = InviteCodeList.query.all()
