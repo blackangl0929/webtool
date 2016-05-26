@@ -1,4 +1,5 @@
 #coding=utf8
+from __future__ import print_function
 from flask import Blueprint,render_template, redirect, url_for,\
     request, jsonify, session
 from app import app
@@ -101,8 +102,8 @@ def sendmail(action):
                     db.session.add(useraddmail)
                     db.session.commit()
                     return jsonify({'msg':'success'})
-                except Exception, e:
-                    print e
+                except Exception as e:
+                    print(e)
         return jsonify({'msg':'faild'})
     if action == "index":
         return render_template('admins/index/pages/sendmail/maillist.html')

@@ -4,7 +4,6 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask import session
 
-
 app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
